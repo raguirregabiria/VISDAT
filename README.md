@@ -29,5 +29,12 @@ docker-compose up -d
 ```bash
 python scripts/load_data.py
 ```
+* Make sure you have the required Python packages installed. You can install them using pip:
+
+```bash
+pip install pandas clickhouse-connect
+```
+
+* Built for Python 3.8 and above.
 
 4 - Access Grafana at `http://localhost:3000` (default credentials: admin/thisIsNotASecurePassword1234).
