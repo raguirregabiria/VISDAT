@@ -1,0 +1,38 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.8-alpine
+    container_name: clickhouse
+    environment:
+      CLICKHOUSE_USER: admin
+      CLICKHOUSE_PASSWORD: password
+      CLICKHOUSE_DB: default
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    # ClickHouse volume have a conflict with WSL: https://stackoverflow.com/questions/77692583/how-insert-data-into-clickhouse-table-with-permission-denied
+    # volumes:
+    #   - ./volumes/clickhouse_data:/var/lib/clickhouse
+    networks:
+      - visdat
+
+  grafana:
+    image: grafana/grafana:12.3.0-18329792253-ubuntu
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: thisIsNotASecurePassword1234
+    depends_on:
+      - clickhouse
+    volumes:
+      - ./volumes/grafana_data:/var/lib/grafana
+    networks:
+      - visdat
+
+networks:
+  visdat:
+    driver: bridge
+
+volumes:
+  clickhouse_data:
+  grafana_data:
