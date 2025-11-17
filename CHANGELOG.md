@@ -1,3 +1,7 @@
+# 1.0.2
+
+- Updated readme
+
 # 1.0.1
 
 - Added configuration to automatically install the Grafana ClickHouse datasource plugin during container startup.
